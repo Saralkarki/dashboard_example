@@ -6,12 +6,10 @@ import dash_html_components as html
 import plotly.graph_objs as go
 from data import df_2,df_3,df_4
 
+from app import server
+from app import app
+
 #Bootstrap CSS
-
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
 server = app.server
 
 app.title = "NEPAL FERTILIZER FINAL"
