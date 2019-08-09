@@ -8,13 +8,38 @@ from data import df_2,df_3,df_4
 
 from app import server
 from app import app
+import callbacks
+import base64
+import datetime
 
 #Bootstrap CSS
 server = app.server
 
 app.title = "NEPAL FERTILIZER FINAL"
 
-app.layout = html.Div([
+app.layout = html.Div([html.Div([
+    dcc.Upload(
+        id='upload-data',
+        children=html.Div([
+            'Drag and Drop or ',
+            html.A('Select Files')
+        ]),
+        style={
+            'width': '100%',
+            'height': '60px',
+            'lineHeight': '60px',
+            'borderWidth': '1px',
+            'borderStyle': 'dashed',
+            'borderRadius': '5px',
+            'textAlign': 'center',
+            'margin': '10px'
+        },
+        # Allow multiple files to be uploaded
+        multiple=True
+    ),
+    html.Div(id='output-data-upload'),
+]),
+
     html.Div([
         html.Br([]),
         html.Div([
@@ -84,35 +109,8 @@ app.layout = html.Div([
     ], className = 'row')       
 ], )
 
-### Callbacks
-@app.callback(
-     Output('first-graph', 'figure'),
-    [Input('dropdown_1', 'value')]
-)
-def update_count(selector):
-    data = []
-    if 'ward' in selector:
-        data = df_2
-    if 'municipality' in selector:
-        data = df_3
-    if 'surveyor id' in selector:
-        data = df_4
-   
-    figure = {
-    'data': [go.Bar(x=data['x'],y=data['y'],textposition='auto')],
-    'layout': {
-                'title': "Graphing {} Count".format(selector),
-                 'xaxis' : dict(
-                     title="{}".format(selector),
-                     titlefont=dict(family = 'monospace'),
-                     size= 20,
-                     color="#000000",
-                     tickangle = 15
-                 ),
-                 
-                }
-    }
-    return figure
+
+
 
 
 

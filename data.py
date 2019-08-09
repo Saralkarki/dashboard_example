@@ -1,5 +1,9 @@
 import pandas as pd
 
+from upload_file import parse_contents
+
+# parse_xcontents()
+
 df = pd.read_excel('data/All_data.xlsx')
 
 ## For Ward counts ###
