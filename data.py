@@ -54,7 +54,7 @@ df_age_group = make_data(df, 'Age_group')
 df_mun_1_ag = make_data(df_mun_1, 'Age_group')
 df_mun_2_ag = make_data(df_mun_2, 'Age_group')
 df_mun_3_ag = make_data(df_mun_3, 'Age_group')
-print("This is funny{}".format(df_mun_1_ag['x'].dtype))
+# print("This is funny{}".format(df_mun_1_ag['x'].dtype))
 
 
 
