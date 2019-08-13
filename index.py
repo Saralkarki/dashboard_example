@@ -16,12 +16,17 @@ import datetime
 #Bootstrap CSS
 server = app.server
 
-wards_options = {'Bansgadi':['Gender'], 'Barabardiya': ['Gender'], 
-                'Badaiyataal': ['Gender'], 
-                'All': ['Gender']
+wards_options = {'Bansgadi':['Gender', 'Caste', 'Family Type', 'Age Group'], 
+                'Barabardiya': ['Gender','Caste','Family Type', 'Age Group'], 
+                'Badaiyataal': ['Gender', 'Caste','Family Type', 'Age Group'], 
+                'All': ['Gender', 'Caste','Family Type','Age Group'], 
                 }
 
-dropdown_var = [{'label': 'Gender', 'value': 'Gender' } ]
+dropdown_var = [{'label': 'Gender', 'value': 'Gender' },
+                {'label':'Caste','value':'Caste'},
+                {'label':'Family Type','value':'Family Type'},
+                {'label':'Age Group','value':'Age Group'}
+                 ]
 
 app.title = "NEPAL FERTILIZER FINAL"
 
