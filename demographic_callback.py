@@ -82,4 +82,6 @@ def update_count(input_mun, input_dem_var):
                 }
     }
     return figure
+# summary stat
+
 

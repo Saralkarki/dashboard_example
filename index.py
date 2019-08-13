@@ -1,5 +1,6 @@
 import os
 import dash
+import dash_table as dt
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -8,8 +9,10 @@ from data import df,df_2,df_3,df_4
 
 from app import server
 from app import app
+
 import callbacks
 import demographic_callback
+
 import base64
 import datetime
 
@@ -126,6 +129,8 @@ dcc.Dropdown(
                 'text-align': 'center',
                 'margin-top': '40px'
             }),
+        
+            html.Div(id='my-div')
         ], className = "six columns")
     ], className = 'row'),
     

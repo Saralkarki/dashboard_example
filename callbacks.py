@@ -1,11 +1,56 @@
 from dash.dependencies import Input, Output, State
+import dash_table as dt
 
+import pandas as pd
 from app import app
 import plotly.graph_objs as go
-from data import df,df_2,df_3,df_4
+from data import df,df_mun_1,df_mun_2,df_mun_3
 
-        
-# ## Option select callback
+
+# @app.callback(Output('my-div', 'data'),
+#             [Input('mun_select','value')]
+#             )
+# def display_val(input_mun):
+#     return "{}".format(input_mun)
+
+@app.callback(Output('my-div','children'),
+    [Input('mun_select','value')],
+)
+def update_datatable(input_mun): 
+    style_cell={'textAlign': 'left', 'padding':'5px'}
+    style_as_list_view=True
+    style_header={'backgroundColor': 'aqua','fontWeight': 'bold'}
+
+
+    if 'All' in input_mun:                            
+        dfgb = pd.DataFrame(df.Age.describe()).T
+        data = dfgb.to_dict('rows')
+        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
+        # print(data)
+        return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        # print(data)
+    if 'Bansgadi' in input_mun:                            
+        dfgb = pd.DataFrame(df_mun_1.Age.describe()).T
+        data = dfgb.to_dict('rows')
+        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
+        # print(data)
+        return dt.DataTable(data=data, columns=columns)
+        # print(data)
+    if 'Barabardiya' in input_mun:                            
+        dfgb = pd.DataFrame(df_mun_2.Age.describe()).T
+        data = dfgb.to_dict('rows')
+        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
+        # print(data)
+        return dt.DataTable(data=data, columns=columns,)
+
+        # print(data)
+    if 'Badaiyataal' in input_mun:                            
+        dfgb = pd.DataFrame(df_mun_3.Age.describe()).T
+        data = dfgb.to_dict('rows')
+        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
+       
+        return dt.DataTable(data=data, columns=columns)      
+# Get the demographic options
 from index import wards_options
 @app.callback(Output('dem_var_select', 'options'),
               [Input('mun_select', 'value')]
