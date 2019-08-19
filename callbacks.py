@@ -4,7 +4,10 @@ import dash_table as dt
 import pandas as pd
 from app import app
 import plotly.graph_objs as go
-from data import df,df_mun_1,df_mun_2,df_mun_3
+from data import (df_all_gender,df_mun_1_gender,df_mun_2_gender, df_mun_3_gender,
+                  df,df_mun_1_caste, df_all_caste,df_mun_2_caste,df_mun_3_caste,
+                  df_mun_1_ft,df_mun_2_ft,df_mun_3_ft,df_all_family_type,
+                  df_age_group, df_mun_1_ag,df_mun_2_ag, df_mun_3_ag)
 
 
 # @app.callback(Output('my-div', 'data'),
@@ -14,42 +17,106 @@ from data import df,df_mun_1,df_mun_2,df_mun_3
 #     return "{}".format(input_mun)
 
 @app.callback(Output('my-div','children'),
-    [Input('mun_select','value')],
+    [Input('mun_select','value'),
+    Input('dem_var_select', 'value')],
 )
-def update_datatable(input_mun): 
-    style_cell={'textAlign': 'left', 'padding':'5px'}
+def update_datatable(input_mun, input_dem_var): 
+    style_cell={'textAlign': 'right', 
+     'minWidth': '30px', 'width': '30px', 'maxWidth': '40px',}
+
+    
     style_as_list_view=True
-    style_header={'backgroundColor': 'aqua','fontWeight': 'bold'}
+    style_header={'backgroundColor': 'white','fontWeight': 'bold'}
+    if 'All' in input_mun:
+        if 'Gender' in input_dem_var:
+            data = df_all_gender.to_dict('rows')
+            columns = [{'name': 'Gender', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        if 'Caste' in input_dem_var:
+            data = df_all_caste.to_dict('rows')
+            columns = [{'name': 'Caste', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        
+        if 'Family Type' in input_dem_var:
+            data = df_all_family_type.to_dict('rows')
+            columns = [{'name': 'Family Type', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        if 'Age Group' in input_dem_var:
+            data = df_age_group.to_dict('rows')
+            columns = [{'name': 'Age Group', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        # print(data)
 
+    if 'Bansgadi' in input_mun:
+        if 'Gender' in input_dem_var:
+            data = df_mun_1_gender.to_dict('rows')
+            columns = [{'name': 'Gender', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)                       
+        if 'Caste' in input_dem_var:
+            data = df_mun_1_caste.to_dict('rows')
+            columns = [{'name': 'Gender', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        
+        if 'Family Type' in input_dem_var:
+            data = df_mun_1_ft.to_dict('rows')
+            columns = [{'name': 'Family Type', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        if 'Age Group' in input_dem_var:
+            data = df_mun_1_ag.to_dict('rows')
+            columns = [{'name': 'Age Group', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
 
-    if 'All' in input_mun:                            
-        dfgb = pd.DataFrame(df.Age.describe()).T
-        data = dfgb.to_dict('rows')
-        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
-        # print(data)
-        return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
-        # print(data)
-    if 'Bansgadi' in input_mun:                            
-        dfgb = pd.DataFrame(df_mun_1.Age.describe()).T
-        data = dfgb.to_dict('rows')
-        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
-        # print(data)
-        return dt.DataTable(data=data, columns=columns)
-        # print(data)
     if 'Barabardiya' in input_mun:                            
-        dfgb = pd.DataFrame(df_mun_2.Age.describe()).T
-        data = dfgb.to_dict('rows')
-        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
-        # print(data)
-        return dt.DataTable(data=data, columns=columns,)
+        if 'Gender' in input_dem_var:
+            data = df_mun_2_gender.to_dict('rows')
+            columns = [{'name': 'Gender', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)                       
+        if 'Caste' in input_dem_var:
+            data = df_mun_2_caste.to_dict('rows')
+            columns = [{'name': 'Caste', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        
+        if 'Family Type' in input_dem_var:
+            data = df_mun_2_ft.to_dict('rows')
+            columns = [{'name': 'Family Type', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        if 'Age Group' in input_dem_var:
+            data = df_mun_2_ag.to_dict('rows')
+            columns = [{'name': 'Age Group', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
 
-        # print(data)
     if 'Badaiyataal' in input_mun:                            
-        dfgb = pd.DataFrame(df_mun_3.Age.describe()).T
-        data = dfgb.to_dict('rows')
-        columns =  [{"name": i, "id": i,} for i in (dfgb.columns)]
-       
-        return dt.DataTable(data=data, columns=columns)      
+        if 'Gender' in input_dem_var:
+            data = df_mun_3_gender.to_dict('rows')
+            columns = [{'name': 'Gender', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)                            
+        if 'Caste' in input_dem_var:
+            data = df_mun_3_caste.to_dict('rows')
+            columns = [{'name': 'Caste', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        
+        if 'Family Type' in input_dem_var:
+            data = df_mun_3_ft.to_dict('rows')
+            columns = [{'name': 'Family Type', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+        if 'Age Group' in input_dem_var:
+            data = df_mun_3_ag.to_dict('rows')
+            columns = [{'name': 'Age Group', 'id': 'x'}, {'name': 'Count', 'id': 'y'}]
+            # columns = [{"name": "{}".format(input_dem_var),"id": i,} for i in (df_all_gender.columns)]
+            return dt.DataTable(data=data, columns=columns, style_cell = style_cell, style_header = style_header)
+
 # Get the demographic options
 from index import wards_options
 @app.callback(Output('dem_var_select', 'options'),

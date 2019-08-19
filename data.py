@@ -32,7 +32,7 @@ def make_data(dataframe, column_name):
     df.columns = ['Count']
     x = df.index
     y = df.Count
-    df = pd.DataFrame({'x': x, 'y':y})
+    df = pd.DataFrame({'x': x, 'y': y})
     return df
 # Gender Dataframe
 df_all_gender = make_data(df, 'survey/gender')
